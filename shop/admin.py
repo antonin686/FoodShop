@@ -1,3 +1,8 @@
 from django.contrib import admin
+from . import models
 
-# Register your models here.
+admin.site.register(models.Collection)
+
+@admin.register(models.Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_per_page = 10
