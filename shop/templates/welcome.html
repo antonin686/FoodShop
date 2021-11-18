@@ -1,6 +1,95 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
-    <h1>mah man</h1>
-    <button class="btn btn-primary">xd</button>
+<section class="home" id="home">
+  <div class="content">
+    <h3>food made with love</h3>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus tempore
+      temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati unde porro
+      nostrum ipsam itaque impedit incidunt rem quisquam eos!
+    </p>
+    <a href="#" class="btn-custom">order now</a>
+  </div>
+
+  <div class="image">
+    <img src="{% static 'media/images/home-img.png' %}" alt="" />
+  </div>
+</section>
+
+<!-- speciality section starts  -->
+
+<section class="speciality" id="speciality">
+
+  <h1 class="heading"> our <span>speciality</span> </h1>
+
+  <div class="box-container">
+      {% for col in collections %}
+      <div class="box">
+          <img class="image" src="{{col.cover_image.url}}" alt="">
+          <div class="content">
+              <img src="{{col.icon.url}}" alt="">
+              <h3>{{ col.name }}</h3>
+              <p>{{ col.description }}</p>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+
+</section>
+
+<!-- speciality section ends -->
+
+<!-- popular section starts  -->
+
+<section class="popular" id="popular">
+
+  <h1 class="heading"> most <span>popular</span> foods </h1>
+
+  <div class="box-container">
+
+      <div class="box">
+          <span class="price"> $5 - $20 </span>
+          <img src="" alt="">
+          <h3>tasty burger</h3>
+          <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+          </div>
+          <a href="#" class="btn">order now</a>
+      </div>
+      <div class="box">
+          <span class="price"> $5 - $20 </span>
+          <img src="" alt="">
+          <h3>tasty cakes</h3>
+          <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+          </div>
+          <a href="#" class="btn">order now</a>
+      </div>
+      <div class="box">
+          <span class="price"> $5 - $20 </span>
+          <img src="" alt="">
+          <h3>tasty sweets</h3>
+          <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+          </div>
+          <a href="#" class="btn">order now</a>
+      </div>
+  </div>
+
+</section>
+
+<!-- popular section ends -->
+
 {% endblock content %}

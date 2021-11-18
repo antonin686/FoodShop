@@ -2,5 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.welcome),
+
+
+    #api
     path('', views.welcome)
 ]
