@@ -16,7 +16,7 @@
 
   <body>
     <header>
-      <a href="#" class="logo"><i class="fas fa-utensils"></i>FoodShop</a>
+      <a href="{% url 'welcome' %}" class="logo"><i class="fas fa-utensils"></i>FoodShop</a>
       <div id="menu-bar" class="fas fa-bars"></div>
       <nav class="navbar">
         <a href="#home">home</a>
@@ -30,7 +30,7 @@
         </a>
       </div>
     </header>
-    <div>{% block content %}{% endblock content %}</div>
+    <div class="body-margin">{% block content %}{% endblock content %}</div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/axios.min.js' %}"></script>
     <script>

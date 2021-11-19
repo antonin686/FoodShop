@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Collection(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="images/")
     cover_image = models.ImageField(upload_to="images/")
@@ -23,7 +23,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     cover_image = models.ImageField(upload_to="images/")
     availability = models.SmallIntegerField(choices=AVAILABILITY_CHOICES, default=1)
-    category = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

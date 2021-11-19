@@ -19,19 +19,17 @@
 <!-- speciality section starts  -->
 
 <section class="speciality" id="speciality">
-
-  <h1 class="heading"> our <span>speciality</span> </h1>
-
+  <h1 class="heading"> Our <span>specialities</span> </h1>
   <div class="box-container">
-      {% for col in collections %}
-      <div class="box">
-          <img class="image" src="{{col.cover_image.url}}" alt="">
+      {% for category in categories %}
+      <a href="{% url 'category_products' category.id %}" class="box">
+          <img class="image" src="{{category.cover_image.url}}" alt="">
           <div class="content">
-              <img src="{{col.icon.url}}" alt="">
-              <h3>{{ col.name }}</h3>
-              <p>{{ col.description }}</p>
+              <img src="{{category.icon.url}}" alt="">
+              <h3>{{ category.name }}</h3>
+              <p>{{ category.description }}</p>
           </div>
-      </div>
+        </a>
       {% endfor %}
   </div>
 

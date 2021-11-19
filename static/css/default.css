@@ -524,6 +524,10 @@ header .navbar a:hover {
   top: -120%;
 }
 
+.body-margin {
+  margin-top: 8rem !important;
+}
+
 /* media queries  */
 
 @media (max-width: 991px) {
