@@ -1,27 +1,32 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<section class="popular" id="popular">
-
-    <h1 class="heading"> Food  <span>List of</span> {{category.name}} </h1>
-  
-    <div class="box-container">
-        {% for product in products %}
-        <div class="box">
-            <span class="price"> BDT {{ product.price }} </span>
-            <img src="{{ product.cover_image.url }}" alt="">
-            <h3>{{ product.name }}r</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
+<section class="product-list">
+  <h1 class="heading">Food <span>List of</span> {{category.name}}</h1>
+  <div class="row justify-content-md-center">
+    {% for product in products %}
+    <div class="col-md-4">
+      <div class="card card-body">
+        <span class="price"> BDT {{ product.price }} </span>
+        <img class="card-img-top" src="{{ product.cover_image.url }}" alt="" />
+        <h3>
+          <a class="product-title fw-bold" href="{% url 'product_detail' product.id %}"
+            >{{ product.name }}</a
+          >
+        </h3>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <div>
             <a href="#" class="btn-custom">order now</a>
         </div>
-        {% endfor %}
+      </div>
     </div>
-  
-  </section>
+    {% endfor %} 
+  </div>
+</section>
 
 {% endblock content %}

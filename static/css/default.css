@@ -3,6 +3,7 @@
 :root {
   --red: #ff3838;
   --orange: #ff5733;
+  --textcolor: #666;
 }
 
 * {
@@ -23,7 +24,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
   overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
@@ -31,6 +32,7 @@ html {
 
 body {
   background: #f7f7f7;
+  color: var(--textcolor);
 }
 a {
   text-decoration: none;
@@ -41,7 +43,7 @@ section {
 
 .heading {
   text-align: center;
-  font-size: 3.5rem;
+  /* font-size: 3.5rem; */
   padding: 1rem;
   color: #666;
 }
@@ -52,11 +54,11 @@ section {
 
 .btn-custom {
   display: inline-block;
-  padding: 0.8rem 3rem;
+  padding: 0.5rem 1.8rem;
   border: 0.2rem solid var(--red);
   color: var(--red);
   cursor: pointer;
-  font-size: 1.7rem;
+  /* font-size: 1.7rem; */
   border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
@@ -95,12 +97,14 @@ header {
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  padding: 2rem 9%;
+  /* padding: 2rem 9%; */
+  padding: 1rem 9%;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 header .logo {
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
+  font-size: 1.4rem;
   font-weight: bolder;
   color: #666;
 }
@@ -111,13 +115,14 @@ header .logo i {
 }
 
 header .navbar a {
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  font-size: 1.2rem;
   margin-left: 2rem;
   color: #666;
 }
 
 header div a {
-  font-size: 2rem;
+  /* font-size: 2rem; */
 }
 
 header div a:hover{
@@ -128,8 +133,17 @@ header .navbar a:hover {
   color: var(--red);
 }
 
+.product-title{
+  color: var(--textcolor);
+  font-weight: bold;
+}
+
+.product-title:hover{
+  color: #000;
+}
+
 #menu-bar {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   cursor: pointer;
   color: #666;
   border: 0.1rem solid #666;
@@ -144,7 +158,6 @@ header .navbar a:hover {
 
 .home {
   display: flex;
-  flex-wrap: wrap;
   gap: 1.5rem;
   min-height: 100vh;
   align-items: center;
@@ -179,12 +192,14 @@ header .navbar a:hover {
 }
 
 .home .content h3 {
-  font-size: 5rem;
+  /* font-size: 5rem; */
+  font-weight: bolder;
   color: #333;
 }
 
+
 .home .content p {
-  font-size: 1.7rem;
+  /* font-size: 1.7rem; */
   color: #666;
   padding: 1rem 0;
 }
@@ -217,23 +232,23 @@ header .navbar a:hover {
 .speciality .box-container .box .content {
   text-align: center;
   background: #fff;
-  padding: 2rem;
+  padding: .6rem;
   height: 100%;
 }
 
 .speciality .box-container .box .content img {
-  margin: 1.5rem 0;
+  margin: .9rem 0;
 }
 
 .speciality .box-container .box .content h3 {
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
   color: #333;
 }
 
 .speciality .box-container .box .content p {
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   color: #666;
-  padding: 1rem 0;
+  padding: .6rem 0;
 }
 
 .speciality .box-container .box:hover .image {
@@ -251,7 +266,7 @@ header .navbar a:hover {
 }
 
 .popular .box-container .box {
-  padding: 2rem;
+  padding: 1.2rem;
   background: #fff;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   border: 0.1rem solid rgba(0, 0, 0, 0.3);
@@ -262,7 +277,7 @@ header .navbar a:hover {
 }
 
 .popular .box-container .box img {
-  height: 25rem;
+  height: 14rem;
   object-fit: cover;
   width: 100%;
   border-radius: 0.5rem;
@@ -274,21 +289,49 @@ header .navbar a:hover {
   left: 3rem;
   background: var(--red);
   color: #fff;
-  font-size: 2rem;
+  /* font-size: 2rem; */
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
 }
 
 .popular .box-container .box h3 {
   color: #333;
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
   padding-top: 1rem;
 }
 
 .popular .box-container .box .stars i {
   color: gold;
-  font-size: 1.7rem;
+  /* font-size: 1.7rem; */
   padding: 1rem 0.1rem;
+}
+
+.product-list .price{
+  position: absolute;
+  top: 1.7rem;
+  left: 1.7rem;
+  background: var(--red);
+  color: #fff;
+  /* font-size: 2rem; */
+  padding: 0.5rem .67rem;
+  border-radius: 0.5rem;
+}
+.product-list .card-body{
+  text-align: center;
+}
+
+.product-list .card-body h3{
+  font-weight: bold;
+  padding-top: 1rem;
+}
+
+.product-list .card-body .stars i {
+  color: gold;
+  padding: 1rem 0.1rem;
+}
+
+.product-list .card-body .card-img-top{
+  border-radius: .5rem !important;
 }
 
 .steps {
@@ -525,22 +568,22 @@ header .navbar a:hover {
 }
 
 .body-margin {
-  margin-top: 8rem !important;
+  margin-top: 4rem !important;
 }
 
 /* media queries  */
 
 @media (max-width: 991px) {
-  html {
+  /* html {
     font-size: 55%;
-  }
+  } */
 
   header {
-    padding: 2rem;
+    padding: 1.2rem;
   }
 
   section {
-    padding: 2rem;
+    padding: 1.2rem;
   }
 }
 
@@ -575,10 +618,14 @@ header .navbar a:hover {
 
 @media (max-width: 450px) {
   html {
-    font-size: 50%;
+    font-size: 90%;
   }
 
   .order .row form .inputBox input {
     width: 100%;
+  }
+
+  .home{
+    flex-wrap: wrap;
   }
 }

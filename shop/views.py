@@ -17,3 +17,8 @@ def category_products(request,id):
         'products' : products
         }
     return render(request, 'category_products.html', context)
+
+def product_detail(request, id):
+    product = Product.objects.get(pk=id)
+    context = { 'product': product }
+    return render(request, 'product_detail.html', context)
