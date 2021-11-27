@@ -37,14 +37,44 @@ body {
 a {
   text-decoration: none;
 }
-section {
+/* section {
   padding: 2rem 9%;
+} */
+/* custom */
+
+.nav-container{
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+  font-size: 1.2rem;
 }
+
+.text-main{
+  color: var(--textcolor);
+}
+
+.logo{
+  color: var(--red);
+  font-size: 1.2rem;
+}
+
+.btn-logo:hover .logo{
+  color: #fff;
+}
+
+
+.bg-white{
+  background-color: #fff;
+}
+
+
+
 
 .heading {
   text-align: center;
   /* font-size: 3.5rem; */
   padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
   color: #666;
 }
 
@@ -87,7 +117,9 @@ section {
   color: #fff;
 }
 
-header {
+
+
+/* header {
   position: fixed;
   top: 0;
   left: 0;
@@ -97,13 +129,11 @@ header {
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  /* padding: 2rem 9%; */
   padding: 1rem 9%;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-}
+} */
 
-header .logo {
-  /* font-size: 2.5rem; */
+/* header .logo {
   font-size: 1.4rem;
   font-weight: bolder;
   color: #666;
@@ -115,15 +145,11 @@ header .logo i {
 }
 
 header .navbar a {
-  /* font-size: 2rem; */
   font-size: 1.2rem;
   margin-left: 2rem;
   color: #666;
 }
 
-header div a {
-  /* font-size: 2rem; */
-}
 
 header div a:hover{
     color: #666 !important;
@@ -131,7 +157,7 @@ header div a:hover{
 
 header .navbar a:hover {
   color: var(--red);
-}
+} */
 
 .product-title{
   color: var(--textcolor);
@@ -164,6 +190,7 @@ header .navbar a:hover {
   background: url(../media/images/home-bg.jpg) no-repeat;
   background-size: cover;
   background-position: center;
+  padding: 2rem 9%;
 }
 
 .home .content {
@@ -257,6 +284,10 @@ header .navbar a:hover {
 
 .speciality .box-container .box:hover .content {
   transform: translateY(100%);
+}
+
+.box-img-hover:hover{
+  
 }
 
 .popular .box-container {
@@ -568,7 +599,7 @@ header .navbar a:hover {
 }
 
 .body-margin {
-  margin-top: 4rem !important;
+  /* margin-top: 4rem !important; */
 }
 
 /* media queries  */
@@ -582,9 +613,9 @@ header .navbar a:hover {
     padding: 1.2rem;
   }
 
-  section {
+  /* section {
     padding: 1.2rem;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
@@ -592,7 +623,7 @@ header .navbar a:hover {
     display: initial;
   }
 
-  header .navbar {
+  /* header .navbar {
     position: absolute;
     top: 100%;
     left: 0;
@@ -602,18 +633,19 @@ header .navbar a:hover {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
 
-  header .navbar.active {
+  header .navbar .active {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  }
+    display: grid;
+  } */
 
-  header .navbar a {
+  /* header .navbar a {
     margin: 1.5rem;
     padding: 1.5rem;
     display: block;
     border: 0.2rem solid rgba(0, 0, 0, 0.1);
     border-left: 0.5rem solid var(--red);
     background: #fff;
-  }
+  } */
 }
 
 @media (max-width: 450px) {

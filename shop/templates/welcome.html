@@ -2,11 +2,11 @@
 
 <section class="home" id="home">
   <div class="content">
-    <h3 class="fs-1 ">food made with love</h3>
+    <h3 class="fs-1">food made with love</h3>
     <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus tempore
-      temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati unde porro
-      nostrum ipsam itaque impedit incidunt rem quisquam eos!
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus
+      tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati
+      unde porro nostrum ipsam itaque impedit incidunt rem quisquam eos!
     </p>
     <a href="#" class="btn-custom">order now</a>
   </div>
@@ -16,78 +16,75 @@
   </div>
 </section>
 
-<!-- speciality section starts  -->
+<div class="container">
+  <!-- speciality section starts  -->
+  
 
-<section class="speciality" id="speciality">
-  <h1 class="heading"> Our <span>specialities</span> </h1>
-  <div class="box-container">
+  <section class="speciality" id="speciality">
+    <h1 class="heading">Our <span>specialities</span></h1>
+    <div class="box-container">
       {% for category in categories %}
       <a href="{% url 'category_products' category.id %}" class="box">
-          <img class="image" src="{{category.cover_image.url}}" alt="">
-          <div class="content">
-              <img src="{{category.icon.url}}" alt="">
-              <h3 class="fw-bold">{{ category.name }}</h3>
-              <p>{{ category.description }}</p>
-          </div>
-        </a>
+        <img class="image" src="{{category.cover_image.url}}" alt="" />
+        <div class="content">
+          <img src="{{category.icon.url}}" alt="" />
+          <h3 class="fw-bold">{{ category.name }}</h3>
+          <p>{{ category.description }}</p>
+        </div>
+      </a>
       {% endfor %}
-  </div>
+    </div>
+  </section>
 
-</section>
+  <!-- speciality section ends -->
 
-<!-- speciality section ends -->
+  <!-- popular section starts  -->
 
-<!-- popular section starts  -->
+  <section class="popular" id="popular">
+    <h1 class="heading">most <span>popular</span> foods</h1>
 
-<section class="popular" id="popular">
-
-  <h1 class="heading"> most <span>popular</span> foods </h1>
-
-  <div class="box-container">
-
+    <div class="box-container">
       <div class="box">
-          <span class="price"> $5 - $20 </span>
-          <img src="" alt="">
-          <h3>tasty burger</h3>
-          <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-          </div>
-          <a href="#" class="btn">order now</a>
+        <span class="price"> $5 - $20 </span>
+        <img src="" alt="" />
+        <h3>tasty burger</h3>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <a href="#" class="btn">order now</a>
       </div>
       <div class="box">
-          <span class="price"> $5 - $20 </span>
-          <img src="" alt="">
-          <h3>tasty cakes</h3>
-          <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-          </div>
-          <a href="#" class="btn">order now</a>
+        <span class="price"> $5 - $20 </span>
+        <img src="" alt="" />
+        <h3>tasty cakes</h3>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <a href="#" class="btn">order now</a>
       </div>
       <div class="box">
-          <span class="price"> $5 - $20 </span>
-          <img src="" alt="">
-          <h3>tasty sweets</h3>
-          <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-          </div>
-          <a href="#" class="btn">order now</a>
+        <span class="price"> $5 - $20 </span>
+        <img src="" alt="" />
+        <h3>tasty sweets</h3>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <a href="#" class="btn">order now</a>
       </div>
-  </div>
-
-</section>
-
-<!-- popular section ends -->
+    </div>
+  </section>
+</div>
 
 {% endblock content %}

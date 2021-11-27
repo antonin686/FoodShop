@@ -16,6 +16,71 @@
 
   <body>
     <header>
+      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow">
+        <div class="container nav-container">
+          <a class="navbar-brand" href="/">
+            <i class="fas fa-utensils logo"></i><span class="mx-2 fs-4">FoodShop</span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'welcome' %}"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/#speciality">Speciality</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Popular</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Review</a>
+              </li>
+            </ul>
+            <ul class="d-flex navbar-nav align-items-center">
+              <li class="nav-item">
+                <button class="btn btn-outline-danger btn-logo position-relative text-main">
+                  <i class="fas fa-shopping-cart logo"></i>
+                  Cart
+                  <span
+                    class="
+                      position-absolute
+                      top-0
+                      start-100
+                      translate-middle
+                      badge
+                      rounded-pill
+                      bg-danger
+                    "
+                  >
+                    0
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item mx-2">
+                <button class="btn">
+                  <i class="fas fa-user-alt logo"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- <header>
       <a href="{% url 'welcome' %}" class="logo"><i class="fas fa-utensils"></i>FoodShop</a>
       <div id="menu-bar" class="fas fa-bars"></div>
       <nav class="navbar">
@@ -29,23 +94,23 @@
           Login
         </a>
       </div>
-    </header>
-    <div class="body-margin">{% block content %}{% endblock content %}</div>
+    </header> -->
+    <div>{% block content %}{% endblock content %}</div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/axios.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
     <script>
-      const axios = require("axios");
-      axios
-        .get("/user?ID=12345")
-        .then(function (response) {
-          // handle success
-          console.log(response);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
+      // const axios = require("axios");
+      // axios
+      //   .get("/user?ID=12345")
+      //   .then(function (response) {
+      //     // handle success
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     // handle error
+      //     console.log(error);
+      //   });
     </script>
   </body>
 </html>
