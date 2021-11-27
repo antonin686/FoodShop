@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 from uuid import uuid4
+from pprint import pprint
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -8,10 +10,13 @@ class Category(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name_plural = 'categories'
 
     def __str__(self) -> str:
         return self.name
-
+    
 class Product(models.Model):
     AVAILABILITY_CHOICES = [
         (0, 'NO'),
@@ -29,4 +34,34 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.id)
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self) -> str:
+        return self.product.name
+
+    # class Meta:
+    #     unique_together = [['cart', 'product']]
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            try:
+                cart_item = CartItem.objects.get(cart_id=self.cart.id, product_id=self.product.id)
+                quantity = cart_item.quantity + self.quantity              
+                CartItem.objects.filter(pk=cart_item.id).update(quantity=quantity)
+            except CartItem.DoesNotExist:
+                super(CartItem, self).save(*args, **kwargs)
+        else:
+            super(CartItem, self).save(*args, **kwargs)
 

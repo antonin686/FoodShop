@@ -13,3 +13,12 @@ class ProductAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ['name']
+
+@admin.register(models.Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_per_page = 10
+    search_fields = ['id']
+
+@admin.register(models.CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_per_page = 10
