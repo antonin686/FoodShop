@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container">
+  <div class="card login-card mx-auto">
+    <div class="card-body m-4">
+      <div class="h1 text-center">Register</div>
+      
+      <form method="post">
+        {% csrf_token %}
+        <p>{{form.username.label}} {{form.username}}</p>
+        {{ form.username.errors }}
+        <p>{{form.phone.label}} {{form.phone}}</p>
+        {{ form.phone.errors }}
+        <p>{{form.email.label}} {{form.email}}</p>
+        {{ form.email.errors }}
+        <p>{{form.password1.label}} {{form.password1}}</p>
+        {{ form.password2.errors }}
+        <p>{{form.password2.label}} {{form.password2}}</p>
+        <div class="text-center">
+          <button class="btn btn-custom" type="submit">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

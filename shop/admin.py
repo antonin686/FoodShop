@@ -1,6 +1,11 @@
 from django.contrib import admin
 from . import models
 
+
+@admin.register(models.Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_per_page = 10
+
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {

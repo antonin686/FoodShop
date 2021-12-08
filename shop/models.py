@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from uuid import uuid4
 from pprint import pprint
 
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=16)
+
+    def __str__(self) -> str:
+        return self.user.username
+    
 class Category(models.Model):
     name = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="images/")
