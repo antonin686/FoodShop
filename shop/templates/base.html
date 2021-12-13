@@ -7,115 +7,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/all.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/default.css' %}" rel="stylesheet" />
-
+    <link href="{% static 'css/alertify.min.css' %}" rel="stylesheet" />
     <title>FoodShop</title>
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow">
-        <div class="container nav-container">
-          <a class="navbar-brand" href="/">
-            <i class="fas fa-utensils logo"></i><span class="mx-2 fs-4">FoodShop</span>
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'welcome' %}"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/#speciality">Speciality</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Popular</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Review</a>
-              </li>
-            </ul>
-            <ul class="d-flex navbar-nav align-items-center">
-              <!-- <li class="nav-item mx-2">
-                <button class="btn btn-outline-danger btn-logo position-relative text-main">
-                  <i class="fas fa-shopping-cart logo"></i>
-                  Cart
-                  <span
-                    class="
-                      position-absolute
-                      top-0
-                      start-100
-                      translate-middle
-                      badge
-                      rounded-pill
-                      bg-danger
-                    "
-                  >
-                    0
-                    <span class="visually-hidden">unread messages</span>
-                  </span>
-                </button>
-              </li> -->
-              {% if user.is_authenticated %}
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbardd"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-user-alt logo"></i> Welcome, {{ request.user }}
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbardd">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-              </li>
-              {% else %}
-              <li class="nav-item mx-3">
-                <a href="{% url 'login' %}">
-                  <i class="fas fa-user-alt logo"></i>
-                  <span class="text-main">Login</span>
-                </a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow">
+      <div class="container nav-container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-utensils logo"></i><span class="mx-2 fs-4">FoodShop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'welcome' %}">
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/#speciality">Speciality</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Popular</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Review</a>
+            </li>
+          </ul>
+          <ul class="d-flex navbar-nav align-items-center">
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbardd"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user-alt logo"></i> Welcome, {{ request.user }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbardd">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+            {% else %}
+            <li class="nav-item mx-3">
+              <a href="{% url 'login' %}">
+                <i class="fas fa-user-alt logo"></i>
+                <span class="text-main">Login</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+
     <div class="body-margin">{% block content %}{% endblock content %}</div>
+
+    <button
+      type="button"
+      class="f-btn text-center p-2"
+      role="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#cart-offcanvas"
+      aria-controls="offcanvasExample"
+    >
+      <i class="fas fa-shopping-bag fs-3"></i>
+      <div class="mt-1">Cart</div>
+      <span id="cart-counter" class="counter">0</span>
+    </button>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="cart-offcanvas"
+      aria-labelledby="cartOffcanvasLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="cartOffcanvasLabel">Your Cart</h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <hr class="mt-0" />
+      <div id="cart-offcanvas-body" class="offcanvas-body p-0"></div>
+    </div>
+
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/axios.min.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/alertify.min.js' %}"></script>
+
     <script>
-      // const axios = require("axios");
-      // axios
-      //   .get("/user?ID=12345")
-      //   .then(function (response) {
-      //     // handle success
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     // handle error
-      //     console.log(error);
-      //   });
+      let urls = {
+        getCartDetails: "{% url 'api_getCartDetails' %}",
+        addToCart: "{% url 'api_addToCart' %}",
+        updateCart: "{% url 'api_updateCart' %}",
+        deleteCart: "{% url 'api_deleteCart' %}",
+        checkout: "{% url 'checkout' %}",
+      };
+
+      
+
+      let csrf = "{{ csrf_token }}";
+      let staticPath = "{% static 'media/'%}";
+      let currency = "BDT";
     </script>
+    <script src="{% static 'js/helper.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+
+    <!-- <script src="{% static 'js/script.js' %}"></script> -->
   </body>
 </html>

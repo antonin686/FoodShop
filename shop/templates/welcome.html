@@ -2,7 +2,7 @@
 
 <section class="home" id="home">
   <div class="content">
-    <h3 class="fs-1">food made with love</h3>
+    <h3 class="fs-1">Food Made With Love</h3>
     <p>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus
       tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati
@@ -17,15 +17,12 @@
 </section>
 
 <div class="container">
-  <!-- speciality section starts  -->
-  
-
   <section class="speciality" id="speciality">
     <h1 class="heading">Our <span>specialities</span></h1>
     <div class="box-container">
       {% for category in categories %}
       <a href="{% url 'category_products' category.id %}" class="box">
-        <img class="image" src="{{category.cover_image.url}}" alt="" />
+        <img class="image" src="{{category.image.url}}" alt="" />
         <div class="content">
           <img src="{{category.icon.url}}" alt="" />
           <h3 class="fw-bold">{{ category.name }}</h3>
@@ -35,10 +32,6 @@
       {% endfor %}
     </div>
   </section>
-
-  <!-- speciality section ends -->
-
-  <!-- popular section starts  -->
 
   <section class="popular" id="popular">
     <h1 class="heading">most <span>popular</span> foods</h1>
