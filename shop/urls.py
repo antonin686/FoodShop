@@ -7,10 +7,11 @@ urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('category/<int:id>/products', views.categoryProducts, name='category_products'),
     path('products/<int:id>', views.productDetail, name='product_detail'),
-    path('login', views.loginPage, name='login'),
-    path('register', views.registerUser, name='register'),
-    path('logout', views.logoutUser, name='logout'),
+    path('accounts/login', views.loginPage, name='login'),
+    path('accounts/register', views.registerUser, name='register'),
+    path('accounts/logout', views.logoutUser, name='logout'),
     path('checkout', views.checkout, name='checkout'),
+    path('confirm_msg', views.confirmMsg, name='confirm_msg'),
 
 
     #api

@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section>
+  <div id="confirm-msg" class="visually-hidden">{% for msg in messages %} {{msg}} {%endfor%}</div>
+</section>
+
+{% endblock content %}
+
+<!-- Script for Checkout -->
+
+{% block footer_script %}
+<script>
+  window.onload = () => {
+    let msgEl = document.querySelector("#confirm-msg");
+    if (msgEl.innerHTML == "") {
+      window.location.href = urls.welcome;
+    } else {
+      let timerInterval;
+      Swal.fire({
+        title: "",
+        html: `<h1>${msgEl.innerHTML}<h1>`,
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        didOpen: () => {
+          
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          window.location.href = urls.welcome;
+        }
+      });
+    }
+  };
+</script>
+{% endblock footer_script %}

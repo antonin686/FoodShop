@@ -11,6 +11,8 @@
     <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/default.css' %}" rel="stylesheet" />
     <link href="{% static 'css/alertify.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet" />
+    
     <title>FoodShop</title>
   </head>
 
@@ -83,6 +85,7 @@
 
     <button
       type="button"
+      id="f-btn-cart"
       class="f-btn text-center p-2"
       role="button"
       data-bs-toggle="offcanvas"
@@ -115,6 +118,7 @@
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/alertify.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.min.js' %}"></script>
 
     <script>
       let urls = {
@@ -123,9 +127,9 @@
         updateCart: "{% url 'api_updateCart' %}",
         deleteCart: "{% url 'api_deleteCart' %}",
         checkout: "{% url 'checkout' %}",
+        welcome: "{% url 'welcome' %}",
       };
 
-      
 
       let csrf = "{{ csrf_token }}";
       let staticPath = "{% static 'media/'%}";
@@ -133,7 +137,6 @@
     </script>
     <script src="{% static 'js/helper.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
-
-    <!-- <script src="{% static 'js/script.js' %}"></script> -->
+    {% block footer_script %}{% endblock footer_script %}
   </body>
 </html>

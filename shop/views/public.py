@@ -6,3 +6,6 @@ def welcome(request):
     context = {'categories' :categories}
     return render(request, 'welcome.html', context)
 
+def confirmMsg(request):
+
+    return render(request, 'confirm_msg.html')

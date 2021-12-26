@@ -1,0 +1,292 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section class="container">
+  <h1 class="heading"><span>Checkout</span></h1>
+
+  <div class="row gap-3">
+    {% if not user.is_authenticated %}
+    <div class="col-md-12 text-center">
+      <div class="card card-body">
+        <div>
+          <a href="{% url 'login' %}" class="btn btn-custom">Login</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table checkout-table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th colspan="2">Food</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th style="text-align: center">Total</th>
+                  <th scope="col">Remove</th>
+                </tr>
+              </thead>
+              <tbody id="cart-body-items">
+                {% if items|length > 0 %} {% for item in items %}
+                <tr>
+                  <th>{{ forloop.counter }}</th>
+                  <td>
+                    <img
+                      style="height: 7rem"
+                      src="{% static 'media/' %}{{item.product__image}}"
+                      alt="{{item.product__name}}"
+                    />
+                  </td>
+                  <td>{{item.product__name}}</td>
+                  <td>{{item.product__price}} {{currency}}</td>
+                  <td style="width: 10rem">
+                    <div class="d-flex justify-content-center align-items-center">
+                      <input
+                        id="chkout-q-inp-{{item.id}}"
+                        type="number"
+                        class="form-control text-center checkout-quantity"
+                        min="1"
+                        value="{{item.quantity}}"
+                      />
+                      <button
+                        id="chkout-q-up-{{item.id}}-{{item.product__price}}"
+                        title="Update"
+                        class="btn cart-item chkout-q-up"
+                      >
+                        <i class="fas fa-sync text-main fs-5"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <span id="checkout-itemtotal-{{item.id}}">
+                      {{item.total|floatformat:2}}
+                    </span>
+                    {{currency}}
+                  </td>
+                  <td class="text-center">
+                    <button
+                      id="chkout-q-cart-rmv-{{item.id}}"
+                      class="btn cart-item chkout-q-cart-rmv"
+                    >
+                      <i class="fas fa-trash text-main fs-4"></i>
+                    </button>
+                  </td>
+                </tr>
+                {%endfor%} {%endif%}
+                <tr class="fw-bold">
+                  <td colspan="6">SUBTOTAL</td>
+                  <td>
+                    <span id="checkout-total">{{total|floatformat:2}}</span> {{currency}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card card-body">
+        <div class="checkout-customer-info mx-auto">
+          <div class="h3 heading fw-bold text-center my-4">
+            Customer <span>Information</span>
+          </div>
+          <form method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <p>{{form.first_name.label}} {{form.first_name}}</p>
+                {{ form.first_name.errors }}
+              </div>
+              <div class="col-md-6">
+                <p>{{form.last_name.label}} {{form.last_name}}</p>
+                {{ form.last_name.errors }}
+              </div>
+
+              <div class="col-md-6">
+                <p>{{form.email.label}} {{form.email}}</p>
+                {{ form.email.errors }}
+              </div>
+              <div class="col-md-6">
+                <p>{{form.phone.label}} {{form.phone}}</p>
+                {{ form.phone.errors }}
+              </div>
+
+              <div class="col-md-8">
+                <p>{{form.address.label}} {{form.address}}</p>
+                {{ form.address.errors }}
+              </div>
+              <div class="col-md-4">
+                <p>{{form.city.label}} {{form.city}}</p>
+                {{ form.city.errors }}
+              </div>
+
+              <p>{{form.comment.label}} {{form.comment}}</p>
+              {{ form.comment.errors }}
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-custom">Confirm Order</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- Script for Checkout -->
+
+{% block footer_script %}
+<script>
+  window.onload = () => {
+    checkoutInit();
+
+    async function checkoutInit() {
+      let cartFloatBtn = document.querySelector("#f-btn-cart");
+      cartFloatBtn.style.display = "none";
+
+      let inEls = document.querySelectorAll(".chkout-q-up");
+      let btnEls = document.querySelectorAll(".chkout-q-cart-rmv");
+
+      inEls.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          updateCart(e);
+        });
+      });
+
+      btnEls.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          removeCart(e);
+        });
+      });
+    }
+
+    async function updateCart(event) {
+      let elId = event.currentTarget.id;
+      let itemId = elId.split("-")[3];
+      let price = elId.split("-")[4];
+      let quantityEl = document.querySelector(`#chkout-q-inp-${itemId}`);
+      let itemTotalEl = document.querySelector(`#checkout-itemtotal-${itemId}`);
+      let cartTotalEl = document.querySelector("#checkout-total");
+      let quantity = quantityEl.value;
+      let oldItemTotal = parseFloat(itemTotalEl.innerHTML);
+      let oldCartTotal = parseFloat(cartTotalEl.innerHTML);
+      let newItemTotal = price * quantity;
+      let newCartTotal = oldCartTotal + (newItemTotal - oldItemTotal);
+
+      itemTotalEl.innerHTML = newItemTotal.toFixed(2);
+      cartTotalEl.innerHTML = newCartTotal.toFixed(2);
+
+      let formData = new FormData();
+      formData.append("cartitem_id", itemId);
+      formData.append("quantity", quantity);
+
+      let res = await fetchPost(urls.updateCart, formData);
+    }
+
+    async function removeCart(event) {
+      let el = event.currentTarget;
+      let id = el.id.split("-")[4];
+      let formData = new FormData();
+      formData.append("cartitem_id", id);
+
+      let res = await fetchPost(urls.deleteCart, formData);
+
+      if (res == "success") {
+        showCartDetails();
+      }
+    }
+
+    async function showCartDetails() {
+      let data = await fetchGet(urls.getCartDetails);
+
+      if (data.count && data.count > 0) {
+        let cartBodyEl = document.querySelector("#cart-body-items");
+        let html = ``;
+        let total = 0;
+
+        data.items.forEach((item, idx) => {
+          let itemTotal = item.product__price * item.quantity;
+          html += `
+          <tr>
+            <th>${idx + 1}</th>
+            <td>
+              <img
+                style="height: 7rem"
+                src="${"media/" + item.product__image}"
+                alt="${item.product__name}"
+              />
+            </td>
+            <td>${item.product__name}</td>
+            <td>${item.product__price} ${currency}</td>
+            <td style="width: 10rem">
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  id="chkout-q-inp-${item.id}"
+                  type="number"
+                  class="form-control text-center checkout-quantity"
+                  min="1"
+                  value="${item.quantity}"
+                />
+                <button
+                  id="chkout-q-up-${item.id}-${item.product__price}"
+                  title="Update"
+                  class="btn cart-item chkout-q-up"
+                >
+                  <i class="fas fa-sync text-main fs-5"></i>
+                </button>
+              </div>
+            </td>
+            <td class="text-center">
+              <span id="checkout-itemtotal-${item.id}">
+                ${itemTotal.toFixed(2)}
+              </span>
+              ${currency}
+            </td>
+            <td class="text-center">
+              <button
+                id="chkout-q-cart-rmv-${item.id}"
+                class="btn cart-item chkout-q-cart-rmv"
+              >
+                <i class="fas fa-trash text-main fs-4"></i>
+              </button>
+            </td>
+          </tr>
+          `;
+          total += item.quantity * item.product__price;
+        });
+
+        html += `
+        <tr class="fw-bold">
+          <td colspan="6">SUBTOTAL</td>
+          <td>
+            <span id="checkout-total">${total.toFixed(2)}</span> ${currency}
+          </td>
+        </tr>
+        `;
+
+        cartBodyEl.innerHTML = html;
+
+        let inEls = document.querySelectorAll(".chkout-q-up");
+        let btnEls = document.querySelectorAll(".chkout-q-cart-rmv");
+
+        inEls.forEach((el) => {
+          el.addEventListener("click", (e) => {
+            updateCart(e);
+          });
+        });
+
+        btnEls.forEach((el) => {
+          el.addEventListener("click", (e) => {
+            removeCart(e);
+          });
+        });
+      }
+    }
+  };
+</script>
+{% endblock footer_script %}
