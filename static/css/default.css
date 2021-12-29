@@ -52,6 +52,14 @@ a {
   font-size: 1.2rem;
 }
 
+.btn-cart-update{
+  color: var(--red);
+}
+
+.btn-cart-update:hover{
+  color: #333 !important;
+}
+
 .btn-logo:hover .logo {
   color: #fff;
 }

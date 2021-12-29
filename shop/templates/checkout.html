@@ -49,9 +49,10 @@
                         class="form-control text-center checkout-quantity"
                         min="1"
                         value="{{item.quantity}}"
+                        data-price="{{item.product__price}}"
                       />
                       <button
-                        id="chkout-q-up-{{item.id}}-{{item.product__price}}"
+                        id="chkout-q-up-{{item.id}}"
                         title="Update"
                         class="btn cart-item chkout-q-up"
                       >
@@ -149,11 +150,16 @@
       let cartFloatBtn = document.querySelector("#f-btn-cart");
       cartFloatBtn.style.display = "none";
 
-      let inEls = document.querySelectorAll(".chkout-q-up");
+      buttonInit();
+    }
+
+    function buttonInit() {
+      let inEls = document.querySelectorAll(".checkout-quantity");
       let btnEls = document.querySelectorAll(".chkout-q-cart-rmv");
+      let storeUpdatedBtnEls = document.querySelectorAll(".chkout-q-up");
 
       inEls.forEach((el) => {
-        el.addEventListener("click", (e) => {
+        el.addEventListener("change", (e) => {
           updateCart(e);
         });
       });
@@ -163,12 +169,18 @@
           removeCart(e);
         });
       });
+
+      storeUpdatedBtnEls.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          storeUpdatedCart(e);
+        });
+      });
     }
 
     async function updateCart(event) {
-      let elId = event.currentTarget.id;
-      let itemId = elId.split("-")[3];
-      let price = elId.split("-")[4];
+      let el = event.currentTarget;
+      let itemId = el.id.split("-")[3];
+      let price = el.getAttribute("data-price");
       let quantityEl = document.querySelector(`#chkout-q-inp-${itemId}`);
       let itemTotalEl = document.querySelector(`#checkout-itemtotal-${itemId}`);
       let cartTotalEl = document.querySelector("#checkout-total");
@@ -180,9 +192,15 @@
 
       itemTotalEl.innerHTML = newItemTotal.toFixed(2);
       cartTotalEl.innerHTML = newCartTotal.toFixed(2);
+    }
+
+    async function storeUpdatedCart(event) {
+      let el = event.currentTarget;
+      let id = el.id.split("-")[3];
+      let quantity = document.querySelector(`#chkout-q-inp-${id}`).value;
 
       let formData = new FormData();
-      formData.append("cartitem_id", itemId);
+      formData.append("cartitem_id", id);
       formData.append("quantity", quantity);
 
       let res = await fetchPost(urls.updateCart, formData);
@@ -231,9 +249,10 @@
                   class="form-control text-center checkout-quantity"
                   min="1"
                   value="${item.quantity}"
+                  data-price="${item.product__price}"
                 />
                 <button
-                  id="chkout-q-up-${item.id}-${item.product__price}"
+                  id="chkout-q-up-${item.id}"
                   title="Update"
                   class="btn cart-item chkout-q-up"
                 >
@@ -271,20 +290,7 @@
 
         cartBodyEl.innerHTML = html;
 
-        let inEls = document.querySelectorAll(".chkout-q-up");
-        let btnEls = document.querySelectorAll(".chkout-q-cart-rmv");
-
-        inEls.forEach((el) => {
-          el.addEventListener("click", (e) => {
-            updateCart(e);
-          });
-        });
-
-        btnEls.forEach((el) => {
-          el.addEventListener("click", (e) => {
-            removeCart(e);
-          });
-        });
+        buttonInit();
       }
     }
   };
