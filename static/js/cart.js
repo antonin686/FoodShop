@@ -13,6 +13,7 @@ window.onload = () => {
         fetchPost(urls.addToCart, formData).then((response) => {
           if (response == "success") {
             getCartDetails().then(() => {
+              alertify.set('notifier', 'position', 'bottom-center');
               alertify.success("Order has been placed");
             });
           }

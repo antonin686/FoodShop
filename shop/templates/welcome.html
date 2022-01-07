@@ -8,7 +8,7 @@
       tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati
       unde porro nostrum ipsam itaque impedit incidunt rem quisquam eos!
     </p>
-    <a href="#" class="btn-custom">Order Now</a>
+    <a href="#popular" class="btn-custom">Order Now</a>
   </div>
 
   <div class="image">
@@ -18,7 +18,7 @@
 
 <div class="container">
   <section class="speciality" id="speciality">
-    <h1 class="heading">Our <span>specialities</span></h1>
+    <h1 class="heading">Our <span>Specialities</span></h1>
     <div class="box-container">
       {% for category in categories %}
       <a href="{% url 'category_products' category.id %}" class="box">
@@ -33,49 +33,38 @@
     </div>
   </section>
 
-  <section class="popular" id="popular">
-    <h1 class="heading">most <span>popular</span> foods</h1>
-
-    <div class="box-container">
-      <div class="box">
-        <span class="price"> $5 - $20 </span>
-        <img src="" alt="" />
-        <h3>tasty burger</h3>
-        <div class="stars">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
+  <section id="popular" class="product-list">
+    <h1 class="heading">Most <span>Popular</span></h1>
+    <div class="row justify-content-md-center">
+      {% for product in popular %}
+      <div class="col-md-4 mb-2">
+        <div class="card card-body">
+          <span class="price"> BDT {{ product.product__price }} </span>
+          <img class="card-img-top" src="{% static '' %}{{'media/'}}{{product.product__image}}" alt="" />
+          <h3>
+            <a class="product-title fw-bold" href="{% url 'product_detail' product.product_id %}">
+              {{ product.product__name }}
+            </a>
+          </h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="d-flex justify-content-center align-items-center my-2">
+            <label class="mx-2" for="quantity-{{ product.product_id }}">Quantity</label>
+            <div class="quantity-input">
+              <input type="number" id="quantity-{{ product.product_id }}" class="form-control" min="1" value="1"/>
+            </div>
+          </div>
+          <div>
+            <button id="btn-order-{{ product.product_id }}" class="btn-custom btn-order">Order Now</button>
+          </div>
         </div>
-        <a href="#" class="btn">order now</a>
       </div>
-      <div class="box">
-        <span class="price"> $5 - $20 </span>
-        <img src="" alt="" />
-        <h3>tasty cakes</h3>
-        <div class="stars">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
-        </div>
-        <a href="#" class="btn">order now</a>
-      </div>
-      <div class="box">
-        <span class="price"> $5 - $20 </span>
-        <img src="" alt="" />
-        <h3>tasty sweets</h3>
-        <div class="stars">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
-        </div>
-        <a href="#" class="btn">order now</a>
-      </div>
+      {% endfor %}
     </div>
   </section>
 </div>

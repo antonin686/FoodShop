@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'welcome' %}">
+              <a class="nav-link active" aria-current="page" href="/#">
                 Home
               </a>
             </li>
@@ -44,11 +44,8 @@
               <a class="nav-link" href="/#speciality">Speciality</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Popular</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Review</a>
-            </li>
+              <a class="nav-link" href="/#popular">Popular</a>
+            </li>            
           </ul>
           <ul class="d-flex navbar-nav align-items-center">
             {% if user.is_authenticated %}
