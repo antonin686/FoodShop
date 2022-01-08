@@ -111,3 +111,10 @@ class OrderItem(models.Model):
 
     class Meta:
         unique_together = [['order', 'product']]
+
+class Review(models.Model):
+    reviewer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    message = models.TextField()
+    rating = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

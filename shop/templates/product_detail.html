@@ -1,18 +1,19 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<section class="popular" id="popular">
+<section class="container py-4" id="popular">
+  <!-- <h1 class="heading"> <span>Food</span> </h1> -->
 
-    <!-- <h1 class="heading"> <span>Food</span> </h1> -->
-  
-    <div class="card">
-        <div class="card-body">
-            dd
-        </div>
-    </div>
-    <div>
-        {{product.name}}
-    </div>
-  
-  </section>
+  <div class="row">
+      <div class="col-md-4">
+          some
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">dd</div>
+          </div>
+          <div>{{product.name}}</div>
+      </div>
+  </div>
+</section>
 
 {% endblock content %}

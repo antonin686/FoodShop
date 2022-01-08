@@ -49,7 +49,7 @@ def updateCart(request):
         if int(quantity) > 0:
             cartitem = CartItem.objects.get(pk=cartitem_id)
             cartitem.quantity = quantity
-            cartitem.save(update_fields=['quantity'])
+            cartitem.save()
             return HttpResponse("success")
 
     return HttpResponse("failed")
