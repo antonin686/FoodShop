@@ -1,7 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+import os
 from uuid import uuid4
 from pprint import pprint
+
+def get_image_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('images', filename)
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -14,8 +21,8 @@ class Customer(models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    icon = models.ImageField(upload_to="images/")
-    image = models.ImageField(upload_to="images/")
+    icon = models.ImageField(upload_to=get_image_path)
+    image = models.ImageField(upload_to=get_image_path)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -35,7 +42,7 @@ class Product(models.Model):
     slug = models.SlugField(null=True)
     description = models.TextField(null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to=get_image_path)
     availability = models.SmallIntegerField(choices=AVAILABILITY_CHOICES, default=1)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -43,6 +50,14 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    alt = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=get_image_path)
+
+    def __str__(self) -> str:
+        return self.alt
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)

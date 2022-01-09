@@ -7,9 +7,9 @@
     <div class="col-md-4 mb-2">
       <div class="card card-body">
         <span class="price"> BDT {{ product.price }} </span>
-        <img class="card-img-top" src="{{ product.image.url }}" alt="" />
+        <img height="250rem" class="card-img-top" src="{{ product.image.url }}" alt="" />
         <h3>
-          <a class="product-title fw-bold" href="{% url 'product_detail' product.id %}">
+          <a class="product-title fw-bold" href="{% url 'product_show' product.id %}">
             {{ product.name }}
           </a>
         </h3>
@@ -23,11 +23,19 @@
         <div class="d-flex justify-content-center align-items-center my-2">
           <label class="mx-2" for="quantity-{{ product.id }}">Quantity</label>
           <div class="quantity-input">
-            <input type="number" id="quantity-{{ product.id }}" class="form-control" min="1" value="1"/>
+            <input
+              type="number"
+              id="quantity-{{ product.id }}"
+              class="form-control"
+              min="1"
+              value="1"
+            />
           </div>
         </div>
         <div>
-          <button id="btn-order-{{ product.id }}" class="btn-custom btn-order">Order Now</button>
+          <button id="btn-order-{{ product.id }}" class="btn-custom btn-order">
+            Order Now
+          </button>
         </div>
       </div>
     </div>

@@ -42,7 +42,7 @@
           <span class="price"> BDT {{ product.product__price }} </span>
           <img class="card-img-top" src="{% static '' %}{{'media/'}}{{product.product__image}}" alt="" />
           <h3>
-            <a class="product-title fw-bold" href="{% url 'product_detail' product.product_id %}">
+            <a class="product-title fw-bold" href="{% url 'product_show' product.product_id %}">
               {{ product.product__name }}
             </a>
           </h3>

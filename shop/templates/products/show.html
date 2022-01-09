@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section class="container py-4" id="popular">
+  <!-- <h1 class="heading"> <span>Food</span> </h1> -->
+
+  <div class="row justify-content-md-center">
+    <!-- Product Details -->
+    <div class="col-md-8">
+      <h1 class="heading">Food <span>Details</span></h1>
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="row p-2">
+            <div class="col-md-5">
+              <a class="glightbox" href="{{product.image.url}}">
+                <img
+                  src="{{product.image.url}}"
+                  class="card-img-top"
+                  alt="{{product.name}}"
+                />
+              </a>
+              <div class="d-flex justify-content-around mt-3 gap-2">
+                {% for extra in extraimages %} 
+                <a class="glightbox" href="{{extra.image.url}}">
+                  <img
+                    src="{{extra.image.url}}"
+                    class="card-img-top"
+                    alt="{{extra.alt}}"
+                    height="70rem"
+                  />
+                </a>
+                {%endfor%}
+              </div>
+            </div>
+            <div class="col-md-7 mt-4 mt-md-0">
+              <h2 class="fw-bold">{{product.name}}</h2>
+              <div class="fs-4 text-main">Price: {{product.price}} {{currency}}</div>
+              <br />
+              <div class="d-flex align-items-center my-2">
+                <label for="quantity-{{ product.id }}">Quantity</label>
+                <div class="quantity-input mx-2">
+                  <input
+                    type="number"
+                    id="quantity-{{ product.id }}"
+                    class="form-control"
+                    min="1"
+                    value="1"
+                  />
+                </div>
+              </div>
+              <div>
+                <button id="btn-order-{{ product.id }}" class="btn-custom btn-order">
+                  Order Now
+                </button>
+              </div>
+            </div>
+            <div class="col mt-4">
+              <h3>Food <span class="text-main">Description</span></h3>
+              <hr />
+              <p>{{product.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Similar Foods -->
+    <div class="col-md-4">
+      <h1 class="heading">Similar <span>Foods</span></h1>
+      <div class="col"></div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- Footer Scripts -->
+{% block footer_script %}
+<script>
+  window.onload = () => {
+    const lightbox = GLightbox();
+  }
+</script>
+{% endblock footer_script %}

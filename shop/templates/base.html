@@ -12,6 +12,7 @@
     <link href="{% static 'css/default.css' %}" rel="stylesheet" />
     <link href="{% static 'css/alertify.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/glightbox.min.css' %}" rel="stylesheet" />
     
     <title>FoodShop</title>
   </head>
@@ -116,7 +117,7 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/alertify.min.js' %}"></script>
     <script src="{% static 'js/sweetalert2.min.js' %}"></script>
-
+    <script src="{% static 'js/glightbox.min.js' %}"></script>
     <script>
       let urls = {
         getCartDetails: "{% url 'api_getCartDetails' %}",
@@ -126,7 +127,6 @@
         checkout: "{% url 'checkout' %}",
         welcome: "{% url 'welcome' %}",
       };
-
 
       let csrf = "{{ csrf_token }}";
       let staticPath = "{% static 'media/'%}";
