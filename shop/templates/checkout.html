@@ -41,8 +41,8 @@
                   </td>
                   <td>{{item.product__name}}</td>
                   <td>{{item.product__price}} {{currency}}</td>
-                  <td style="width: 10rem">
-                    <div class="d-flex justify-content-center align-items-center">
+                  <td>
+                    <div class="d-flex align-items-center">
                       <input
                         id="chkout-q-inp-{{item.id}}"
                         type="number"
@@ -50,6 +50,7 @@
                         min="1"
                         value="{{item.quantity}}"
                         data-price="{{item.product__price}}"
+                        style="min-width: 5rem; max-width: 5rem"
                       />
                       <button
                         id="chkout-q-up-{{item.id}}"
@@ -204,6 +205,11 @@
       formData.append("quantity", quantity);
 
       let res = await fetchPost(urls.updateCart, formData);
+
+      if (res == "success") {
+        alertify.set("notifier", "position", "bottom-center");
+        alertify.success("Quantity Updated");
+      }
     }
 
     async function removeCart(event) {
@@ -242,7 +248,7 @@
             <td>${item.product__name}</td>
             <td>${item.product__price} ${currency}</td>
             <td style="width: 10rem">
-              <div class="d-flex justify-content-center align-items-center">
+              <div class="d-flex align-items-center">
                 <input
                   id="chkout-q-inp-${item.id}"
                   type="number"
@@ -250,6 +256,7 @@
                   min="1"
                   value="${item.quantity}"
                   data-price="${item.product__price}"
+                  style="min-width: 5rem; max-width: 5rem;"
                 />
                 <button
                   id="chkout-q-up-${item.id}"

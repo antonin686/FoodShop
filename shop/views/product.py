@@ -17,9 +17,11 @@ def categoryProducts(request, id):
 def productShow(request, id):
     product = Product.objects.get(pk=id)
     extraimages = product.images.all()
+    similarproducts = Product.objects.filter(category_id = product.category_id)
     context = {
         'product': product,
         'extraimages': extraimages,
+        'similarproducts': similarproducts,
         'currency': 'BDT'
     }
     return render(request, 'products/show.html', context)
