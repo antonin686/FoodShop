@@ -76,7 +76,7 @@ async function removeCart(event) {
 
 async function getCartDetails() {
   let data = await fetchGet(urls.getCartDetails);
-  console.log(data);
+  //console.log(data);
   if (data.count && data.count > 0) {
     let counterEl = document.querySelector("#cart-counter");
     let cartBodyEl = document.querySelector("#cart-offcanvas-body");

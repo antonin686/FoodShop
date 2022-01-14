@@ -118,6 +118,8 @@
     <script src="{% static 'js/alertify.min.js' %}"></script>
     <script src="{% static 'js/sweetalert2.min.js' %}"></script>
     <script src="{% static 'js/glightbox.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    
     <script>
       let urls = {
         getCartDetails: "{% url 'api_getCartDetails' %}",
@@ -126,6 +128,7 @@
         deleteCart: "{% url 'api_deleteCart' %}",
         checkout: "{% url 'checkout' %}",
         welcome: "{% url 'welcome' %}",
+        addReview: "{% url 'api_addReview' %}"
       };
 
       let csrf = "{{ csrf_token }}";

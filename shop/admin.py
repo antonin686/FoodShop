@@ -39,3 +39,7 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(models.OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     list_per_page = 10
+
+@admin.register(models.Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_per_page = 10

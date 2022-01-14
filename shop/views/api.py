@@ -1,8 +1,11 @@
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User
-from django.db.models import Sum
-from ..models import Cart, CartItem, Customer
+from django.db.models import Sum, Value
+from django.db.models.functions import Concat
+from ..models import Cart, CartItem, Customer, Product, Review, Order, OrderItem
 from pprint import pprint
+from django.views.decorators.http import require_POST
+from .helper import checkIfCanReview
 
 
 def getCartInfo(request):
@@ -63,5 +66,24 @@ def deleteCart(request):
         cartitem.delete()
 
         return HttpResponse("success")
+
+    return HttpResponse("fail")
+
+
+@require_POST
+def addReview(request):
+    if request.user.is_authenticated and hasattr(request.user, 'customer'):
+        product_id = request.POST.get('product_id')
+        message = request.POST.get('reviewMsg')
+        rating = request.POST.get('rating')
+        customer_id = request.user.customer.id
+        if checkIfCanReview(customer_id, product_id):
+            Review.objects.create(customer_id=customer_id,
+                                  product_id=product_id, message=message, rating=rating)
+            res = list(Review.objects.filter(product_id=product_id).annotate(
+                full_name=Concat('customer__user__first_name', Value(' '),
+                                 'customer__user__last_name')).values('id', 'full_name', 'rating',
+                                                                      'message', 'created_at'))
+            return JsonResponse(res, safe=False)
 
     return HttpResponse("fail")

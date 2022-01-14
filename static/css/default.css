@@ -4,6 +4,7 @@
   --red: #ff3838;
   --orange: #ff5733;
   --textcolor: #666;
+  --ratingColor: gold;
 }
 
 * {
@@ -51,6 +52,57 @@ a {
   color: var(--red);
   font-size: 1.2rem;
 }
+
+/* rating */
+
+.cus-rating-input{
+
+}
+
+.rating-widget input {
+  display: none;
+}
+
+.rating-widget label {
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 0 4px rgb(89, 64, 0);
+}
+
+.rating-widget input:not(:checked) ~ label:hover,
+.rating-widget input:not(:checked) ~ label:hover ~ label{
+  color: var(--ratingColor);
+}
+.rating-widget input:checked ~ label{
+  color: var(--ratingColor);
+}
+.rating-widget input#rate-5:checked ~ label{
+  color: var(--ratingColor);
+  text-shadow: 0 0 8px var(--ratingColor);
+}
+
+.rating-widget #rate-1:checked ~ form header:before{
+  content: "I just hate it ";
+}
+.rating-widget #rate-2:checked ~ form header:before{
+  content: "I don't like it ";
+}
+.rating-widget #rate-3:checked ~ form header:before{
+  content: "It is awesome ";
+}
+.rating-widget #rate-4:checked ~ form header:before{
+  content: "I just like it ";
+}
+.rating-widget #rate-5:checked ~ form header:before{
+  content: "I just love it ";
+}
+
+.review-profile{
+  width: 4rem;
+  border-radius: 25px;
+}
+
+/* rating end */
 
 .btn-cart-update{
   color: var(--red);
@@ -397,7 +449,7 @@ a {
   padding-top: 1rem;
 }
 
-.popular .box-container .box .stars i {
+.stars i {
   color: gold;
   /* font-size: 1.7rem; */
   padding: 1rem 0.1rem;
@@ -422,7 +474,7 @@ a {
   padding-top: 1rem;
 }
 
-.product-list .card-body .stars i {
+.stars i {
   color: gold;
   padding: 1rem 0.1rem;
 }
@@ -534,12 +586,6 @@ a {
 .review .box-container .box h3 {
   font-size: 2.5rem;
   color: #fff;
-  padding: 0.5rem 0;
-}
-
-.review .box-container .box .stars i {
-  font-size: 2rem;
-  color: var(--red);
   padding: 0.5rem 0;
 }
 

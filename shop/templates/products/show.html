@@ -61,6 +61,72 @@
           </div>
         </div>
       </div>
+      <div class="card mt-3 shadow">
+        <div class="card-body">
+          <div class="h4">Food <span class="text-main">Reviews</span></div>
+          <hr />
+          {% if canReview %}
+          <div id="add-review" class="card card-body shadow-sm">
+            <h5>Describe your Exprience:</h5>
+            <div
+              class="rating-widget d-flex gap-1 flex-row-reverse justify-content-center mb-3"
+              title="Rating"
+            >
+              <input type="radio" name="rate" id="rate-5" />
+              <label for="rate-5" class="fas fa-star"></label>
+              <input type="radio" name="rate" id="rate-4" />
+              <label for="rate-4" class="fas fa-star"></label>
+              <input type="radio" name="rate" id="rate-3" />
+              <label for="rate-3" class="fas fa-star"></label>
+              <input type="radio" name="rate" id="rate-2" />
+              <label for="rate-2" class="fas fa-star"></label>
+              <input type="radio" name="rate" id="rate-1" checked />
+              <label for="rate-1" class="fas fa-star"></label>
+            </div>
+            <textarea
+              class="form-control"
+              id="review-msg"
+              rows="2"
+              placeholder="Your Review"
+            ></textarea>
+            <div class="d-flex justify-content-end mt-2">
+              <button class="btn btn-primary px-3" onclick="addReview()">Submit</button>
+            </div>
+          </div>
+          {% endif %}
+          <div id="review-list" class="mt-2">
+            {% for review in reviews %}
+            <div class="card card-body shadow-sm">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-1">
+                  <img
+                    class="review-profile"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                    alt=""
+                  />
+                  <div class="d-flex flex-column justify-content-center">
+                    <span class="fs-4 fw-bold text-capitalize">
+                      {{review.customer.user.first_name}} {{review.customer.user.last_name}}
+                    </span>
+                    <span style="font-size: 0.8rem" class="fw-light">{{review.created_at}}</span>
+                  </div>
+                </div>
+                <div class="stars fs-4">
+                  {% with ''|center:review.rating as range %}
+                  {% for _ in range%}
+                    <i class="fas fa-star"></i>
+                  {% endfor %}
+                  {% endwith %}
+                </div>
+              </div>
+              <p class="mt-2">
+                {{review.message}}
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Similar Foods -->
@@ -69,11 +135,11 @@
       <div class="d-flex flex-column product-list">
         {% for prod in similarproducts %}
         <div class="card card-body shadow mb-3">
-          <span class="price"> {{currency}} {{ product.price }} </span>
-          <img src="{{prod.image.url}}" class="card-img-top" alt="{{product.naem}}" />
+          <span class="price"> {{currency}} {{ prod.price }} </span>
+          <img src="{{prod.image.url}}" class="card-img-top" alt="{{prod.naem}}" />
           <h3>
-            <a class="product-title fw-bold" href="{% url 'product_show' product.id %}">
-              {{ product.name }}
+            <a class="product-title fw-bold" href="{% url 'product_show' prod.id %}">
+              {{ prod.name }}
             </a>
           </h3>
           <div class="stars">
@@ -84,11 +150,11 @@
             <i class="far fa-star"></i>
           </div>
           <div class="d-flex justify-content-center align-items-center my-2">
-            <label class="mx-2" for="quantity-{{ product.id }}">Quantity</label>
+            <label class="mx-2" for="quantity-{{ prod.id }}">Quantity</label>
             <div class="quantity-input">
               <input
                 type="number"
-                id="quantity-{{ product.id }}"
+                id="quantity-{{ prod.id }}"
                 class="form-control"
                 min="1"
                 value="1"
@@ -96,7 +162,7 @@
             </div>
           </div>
           <div>
-            <button id="btn-order-{{ product.id }}" class="btn-custom btn-order">
+            <button id="btn-order-{{ prod.id }}" class="btn-custom btn-order">
               Order Now
             </button>
           </div>
@@ -112,8 +178,69 @@
 <!-- Footer Scripts -->
 {% block footer_script %}
 <script>
-  window.onload = () => {
-    const lightbox = GLightbox();
-  };
+  const lightbox = GLightbox();
+  async function addReview() {
+    let reviewMsg = document.querySelector("#review-msg").value;
+    let rating = 1;
+
+    if (document.querySelector("#rate-5").checked) {
+      rating = 5;
+    } else if (document.querySelector("#rate-4").checked) {
+      rating = 4;
+    } else if (document.querySelector("#rate-3").checked) {
+      rating = 3;
+    } else if (document.querySelector("#rate-2").checked) {
+      rating = 2;
+    } else if (document.querySelector("#rate-1").checked) {
+      rating = 1;
+    }
+
+    let formData = new FormData();
+    formData.append("product_id", "{{product.id}}");
+    formData.append("reviewMsg", reviewMsg);
+    formData.append("rating", rating);
+
+    let res = await fetchPost(urls.addReview, formData);
+
+    let reviews = JSON.parse(res);
+    let html = "";
+
+    reviews.forEach(review => {
+      let star = "";
+      let createdate = moment(review.created_at).format('MMM. D, YYYY, h:mm a')
+      for (let i = 0; i < review.rating; i++) {
+        star += '<i class="fas fa-star"></i>'
+      }
+      html += `
+      <div class="card card-body shadow-sm">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex gap-1">
+            <img
+              class="review-profile"
+              src="{{profileimg}}"
+              alt=""
+            />
+            <div class="d-flex flex-column justify-content-center">
+              <span class="fs-4 fw-bold text-capitalize">
+                ${review.full_name}
+              </span>
+              <span style="font-size: 0.8rem" class="fw-light">${createdate}</span>
+            </div>
+          </div>
+          <div class="stars fs-4">
+              ${star}
+          </div>
+        </div>
+        <p class="mt-2">
+          ${review.message}
+        </p>
+      </div>
+      `
+    });
+
+    document.querySelector('#add-review').style.display = "none";
+    document.querySelector('#review-list').innerHTML = html;
+
+  }
 </script>
 {% endblock footer_script %}
